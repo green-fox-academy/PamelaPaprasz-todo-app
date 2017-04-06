@@ -1,58 +1,69 @@
 import sys
 
-#print('1;Wake up!'.split(';'))
 
-def no_argument():
+def different_inputs():
     if len(sys.argv) == 1:
         print_help()
+    else:
+        if sys.argv[1] == '-l':
+            list_element()
+        if sys.argv[1] == '-a':
+            add_element()
+        if sys.argv[1] == '-r':
+            remove_element()
+        if sys.argv[1] == '-c':
+            complete_element()
+            
+            
 def print_help():
     help_text = open('help.txt', 'r')
-    help_text = help_text.read()
-    print(help_text)
+    help_text1 = help_text.read()
+    print(help_text1)
+    help_text.close()
+    
+
+def list_element():
+    my_file = open('my-todo.txt', 'r')
+    my_line = my_file.read()
+    #print(my_line)
+    my_file.close()
+    view_todo()
+
+        
+def add_element():
+    add_file = open('my-todo.txt', 'r+')
+    add_file.write('\n0;' + sys.argv[2].rstrip())
+    add_line = add_file.readlines()
+    print(add_line)
+    add_file.close()
+
+
+def remove_element():
+    remove_file = open('my-todo.txt', 'r+')
+    remove_lines = remove_file.readlines()
+    print(remove_lines)
+    remove_file.close()
+
+
+def complete_element():
+    complete_file = open('my-todo.txt', 'r+')
+    complete_lines = complete_file.readlines()
+    print(complete_lines)
+    complete_file.close()
+
+
+def view_todo():
+    view_file = open('my-todo.txt', 'r')
+    number = 1
+    for i in view_file:
+        lines = i.rstrip().split(';')
+        if lines[0] =='1':
+            print(number, '[x]', lines[1])
+        else:
+            print(number, '[ ]', lines[1])
+        number += 1
+    view_file.close()
 
 
 
-def list_todo():
-    if sys.argv[1] == '-l':
-        open_list_todo()
-def open_list_todo():
-    my_todo = open('my-todo.txt', 'r')
-    my_todo = my_todo.read()
-    print(my_todo)
-
-
-
-def add_todo():
-    if sys.argv[1] == '-a':
-        open_add_todo()
-def open_add_todo():
-    add_my_todo = open('my-todo.txt', 'r+')
-    add_my_todo.write('\n0;' + sys.argv[2].rstrip())
-    add_my_todo1 = add_my_todo.readlines()
-    print(add_my_todo1)
-
-
-
-def remove_todo():
-    if sys.argv[1] == '-r':
-        open_remove_todo()
-def open_remove_todo():
-    remove_my_todo = open('my-todo.txt', 'r+')
-    remove_my_todo1 = remove_my_todo.readlines()
-    print(remove_my_todo1)
-
-
-
-def complete_todo():
-    if sys.argv[1] == '-c':
-        open_complete_todo()
-def open_complete_todo():
-    complete_my_todo = open('my-todo.txt', 'r+')
-    complete_my_todo1 = complete_my_todo.readlines()
-    print(complete_my_todo1)
-
-
-no_argument()
-list_todo()
-add_todo()
-remove_todo()
+different_inputs()
